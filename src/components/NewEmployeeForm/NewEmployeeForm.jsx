@@ -282,6 +282,7 @@ const NewEmployeeForm = (props) => {
 			department,
 		};
     props.setEmployees(props.employees.concat(employee))
+    props.setModalState(true)
 	};
 	return (
 		<>
