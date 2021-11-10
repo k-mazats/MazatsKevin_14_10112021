@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import NewEmployeeForm from '../../NewEmployeeForm/NewEmployeeForm';
-const Home = () => {
+const Home = (props) => {
 	return (
 		<>
 			<div className="title">
@@ -9,7 +9,10 @@ const Home = () => {
 			<div className="container">
 				<Link to="/employees-list">View Current Employees</Link>
 				<h2>Create Employee</h2>
-				<NewEmployeeForm></NewEmployeeForm>
+				<NewEmployeeForm
+					employees={props.employees}
+					setEmployees={props.setEmployees}
+				></NewEmployeeForm>
 			</div>
 		</>
 	);

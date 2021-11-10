@@ -1,9 +1,9 @@
 import { forwardRef } from 'react';
 import { useState } from 'react';
 import DatePicker from 'react-datepicker';
- import 'react-datepicker/dist/react-datepicker.css';
+import 'react-datepicker/dist/react-datepicker.css';
 
-const NewEmployeeForm = () => {
+const NewEmployeeForm = (props) => {
 	const [firstName, setFirstName] = useState('');
 	const [lastName, setLastName] = useState('');
 	const [birthDate, setBirthDate] = useState(new Date());
@@ -11,7 +11,7 @@ const NewEmployeeForm = () => {
 	const [adressStreet, setAddressStreet] = useState('');
 	const [adressCity, setAddressCity] = useState('');
 	const [adressState, setAddressState] = useState('');
-	const [adressZip, setAddressZip] = useState();
+	const [adressZip, setAddressZip] = useState(0);
 	const [department, setDepartment] = useState('');
 	const states = [
 		{
@@ -251,16 +251,16 @@ const NewEmployeeForm = () => {
 			abbreviation: 'WY',
 		},
 	];
-	const BirthDateInput = forwardRef(({onChange, value, onClick }, ref) => (
+	const BirthDateInput = forwardRef(({ onChange, value, onClick }, ref) => (
 		<input
 			id="date-of-birth"
 			onClick={onClick}
 			ref={ref}
 			value={value}
-      onChange={onChange}
+			onChange={onChange}
 		/>
 	));
-  const StartDateInput = forwardRef(({ onChange, value, onClick }, ref) => (
+	const StartDateInput = forwardRef(({ onChange, value, onClick }, ref) => (
 		<input
 			id="start-date"
 			onClick={onClick}
@@ -269,6 +269,20 @@ const NewEmployeeForm = () => {
 			onChange={onChange}
 		/>
 	));
+	const createEmployee = () => {
+		const employee = {
+			firstName,
+			lastName,
+			birthDate,
+			startDate,
+			adressStreet,
+			adressCity,
+			adressState,
+			adressZip,
+			department,
+		};
+    props.setEmployees(props.employees.concat(employee))
+	};
 	return (
 		<>
 			<form>
@@ -372,7 +386,7 @@ const NewEmployeeForm = () => {
 					<option>Legal</option>
 				</select>
 			</form>
-			<button>Save</button>
+			<button onClick={createEmployee}>Save</button>
 		</>
 	);
 };
