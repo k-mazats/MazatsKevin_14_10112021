@@ -1,4 +1,8 @@
+import { forwardRef } from 'react';
 import { useState } from 'react';
+import DatePicker from 'react-datepicker';
+ import 'react-datepicker/dist/react-datepicker.css';
+
 const NewEmployeeForm = () => {
 	const [firstName, setFirstName] = useState('');
 	const [lastName, setLastName] = useState('');
@@ -247,9 +251,27 @@ const NewEmployeeForm = () => {
 			abbreviation: 'WY',
 		},
 	];
+	const BirthDateInput = forwardRef(({onChange, value, onClick }, ref) => (
+		<input
+			id="date-of-birth"
+			onClick={onClick}
+			ref={ref}
+			value={value}
+      onChange={onChange}
+		/>
+	));
+  const StartDateInput = forwardRef(({ onChange, value, onClick }, ref) => (
+		<input
+			id="start-date"
+			onClick={onClick}
+			ref={ref}
+			value={value}
+			onChange={onChange}
+		/>
+	));
 	return (
 		<>
-			<form action="#" id="create-employee">
+			<form>
 				<label htmlFor="first-name">First Name</label>
 				<input
 					type="text"
@@ -271,10 +293,18 @@ const NewEmployeeForm = () => {
 				/>
 
 				<label htmlFor="date-of-birth">Date of Birth</label>
-				<input id="date-of-birth" type="text" />
+				<DatePicker
+					selected={birthDate}
+					onChange={(date) => setBirthDate(date)}
+					customInput={<BirthDateInput />}
+				/>
 
 				<label htmlFor="start-date">Start Date</label>
-				<input id="start-date" type="text" />
+				<DatePicker
+					selected={startDate}
+					onChange={(date) => setStartDate(date)}
+					customInput={<StartDateInput />}
+				/>
 
 				<fieldset className="address">
 					<legend>Address</legend>
