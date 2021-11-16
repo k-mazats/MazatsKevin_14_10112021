@@ -9,8 +9,8 @@ const SelectMenu = (props) => {
 					props.onChangeHandler(e.target.value);
 				}}
 			>
-				{props.options.map((option) => {
-					return <option value={option.value}>{option.name}</option>;
+				{props.options.map((option,index) => {
+					return <option value={option.value} key={`option-${option.value}-${index}`} selected={option}>{option.name}</option>;
 				})}
 			</select>
 		</>
