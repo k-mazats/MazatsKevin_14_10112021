@@ -1,6 +1,7 @@
 import { forwardRef } from 'react';
 import { useState } from 'react';
 import DatePicker from 'react-datepicker';
+import SelectMenu from '../SelectMenu/SelectMenu';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const NewEmployeeForm = (props) => {
@@ -13,244 +14,252 @@ const NewEmployeeForm = (props) => {
 	const [adressState, setAddressState] = useState('');
 	const [adressZip, setAddressZip] = useState(0);
 	const [department, setDepartment] = useState('');
-	const states = [
+	const statesArray = [
 		{
 			name: 'Alabama',
-			abbreviation: 'AL',
+			value: 'AL',
 		},
 		{
 			name: 'Alaska',
-			abbreviation: 'AK',
+			value: 'AK',
 		},
 		{
 			name: 'American Samoa',
-			abbreviation: 'AS',
+			value: 'AS',
 		},
 		{
 			name: 'Arizona',
-			abbreviation: 'AZ',
+			value: 'AZ',
 		},
 		{
 			name: 'Arkansas',
-			abbreviation: 'AR',
+			value: 'AR',
 		},
 		{
 			name: 'California',
-			abbreviation: 'CA',
+			value: 'CA',
 		},
 		{
 			name: 'Colorado',
-			abbreviation: 'CO',
+			value: 'CO',
 		},
 		{
 			name: 'Connecticut',
-			abbreviation: 'CT',
+			value: 'CT',
 		},
 		{
 			name: 'Delaware',
-			abbreviation: 'DE',
+			value: 'DE',
 		},
 		{
 			name: 'District Of Columbia',
-			abbreviation: 'DC',
+			value: 'DC',
 		},
 		{
 			name: 'Federated States Of Micronesia',
-			abbreviation: 'FM',
+			value: 'FM',
 		},
 		{
 			name: 'Florida',
-			abbreviation: 'FL',
+			value: 'FL',
 		},
 		{
 			name: 'Georgia',
-			abbreviation: 'GA',
+			value: 'GA',
 		},
 		{
 			name: 'Guam',
-			abbreviation: 'GU',
+			value: 'GU',
 		},
 		{
 			name: 'Hawaii',
-			abbreviation: 'HI',
+			value: 'HI',
 		},
 		{
 			name: 'Idaho',
-			abbreviation: 'ID',
+			value: 'ID',
 		},
 		{
 			name: 'Illinois',
-			abbreviation: 'IL',
+			value: 'IL',
 		},
 		{
 			name: 'Indiana',
-			abbreviation: 'IN',
+			value: 'IN',
 		},
 		{
 			name: 'Iowa',
-			abbreviation: 'IA',
+			value: 'IA',
 		},
 		{
 			name: 'Kansas',
-			abbreviation: 'KS',
+			value: 'KS',
 		},
 		{
 			name: 'Kentucky',
-			abbreviation: 'KY',
+			value: 'KY',
 		},
 		{
 			name: 'Louisiana',
-			abbreviation: 'LA',
+			value: 'LA',
 		},
 		{
 			name: 'Maine',
-			abbreviation: 'ME',
+			value: 'ME',
 		},
 		{
 			name: 'Marshall Islands',
-			abbreviation: 'MH',
+			value: 'MH',
 		},
 		{
 			name: 'Maryland',
-			abbreviation: 'MD',
+			value: 'MD',
 		},
 		{
 			name: 'Massachusetts',
-			abbreviation: 'MA',
+			value: 'MA',
 		},
 		{
 			name: 'Michigan',
-			abbreviation: 'MI',
+			value: 'MI',
 		},
 		{
 			name: 'Minnesota',
-			abbreviation: 'MN',
+			value: 'MN',
 		},
 		{
 			name: 'Mississippi',
-			abbreviation: 'MS',
+			value: 'MS',
 		},
 		{
 			name: 'Missouri',
-			abbreviation: 'MO',
+			value: 'MO',
 		},
 		{
 			name: 'Montana',
-			abbreviation: 'MT',
+			value: 'MT',
 		},
 		{
 			name: 'Nebraska',
-			abbreviation: 'NE',
+			value: 'NE',
 		},
 		{
 			name: 'Nevada',
-			abbreviation: 'NV',
+			value: 'NV',
 		},
 		{
 			name: 'New Hampshire',
-			abbreviation: 'NH',
+			value: 'NH',
 		},
 		{
 			name: 'New Jersey',
-			abbreviation: 'NJ',
+			value: 'NJ',
 		},
 		{
 			name: 'New Mexico',
-			abbreviation: 'NM',
+			value: 'NM',
 		},
 		{
 			name: 'New York',
-			abbreviation: 'NY',
+			value: 'NY',
 		},
 		{
 			name: 'North Carolina',
-			abbreviation: 'NC',
+			value: 'NC',
 		},
 		{
 			name: 'North Dakota',
-			abbreviation: 'ND',
+			value: 'ND',
 		},
 		{
 			name: 'Northern Mariana Islands',
-			abbreviation: 'MP',
+			value: 'MP',
 		},
 		{
 			name: 'Ohio',
-			abbreviation: 'OH',
+			value: 'OH',
 		},
 		{
 			name: 'Oklahoma',
-			abbreviation: 'OK',
+			value: 'OK',
 		},
 		{
 			name: 'Oregon',
-			abbreviation: 'OR',
+			value: 'OR',
 		},
 		{
 			name: 'Palau',
-			abbreviation: 'PW',
+			value: 'PW',
 		},
 		{
 			name: 'Pennsylvania',
-			abbreviation: 'PA',
+			value: 'PA',
 		},
 		{
 			name: 'Puerto Rico',
-			abbreviation: 'PR',
+			value: 'PR',
 		},
 		{
 			name: 'Rhode Island',
-			abbreviation: 'RI',
+			value: 'RI',
 		},
 		{
 			name: 'South Carolina',
-			abbreviation: 'SC',
+			value: 'SC',
 		},
 		{
 			name: 'South Dakota',
-			abbreviation: 'SD',
+			value: 'SD',
 		},
 		{
 			name: 'Tennessee',
-			abbreviation: 'TN',
+			value: 'TN',
 		},
 		{
 			name: 'Texas',
-			abbreviation: 'TX',
+			value: 'TX',
 		},
 		{
 			name: 'Utah',
-			abbreviation: 'UT',
+			value: 'UT',
 		},
 		{
 			name: 'Vermont',
-			abbreviation: 'VT',
+			value: 'VT',
 		},
 		{
 			name: 'Virgin Islands',
-			abbreviation: 'VI',
+			value: 'VI',
 		},
 		{
 			name: 'Virginia',
-			abbreviation: 'VA',
+			value: 'VA',
 		},
 		{
 			name: 'Washington',
-			abbreviation: 'WA',
+			value: 'WA',
 		},
 		{
 			name: 'West Virginia',
-			abbreviation: 'WV',
+			value: 'WV',
 		},
 		{
 			name: 'Wisconsin',
-			abbreviation: 'WI',
+			value: 'WI',
 		},
 		{
 			name: 'Wyoming',
-			abbreviation: 'WY',
+			value: 'WY',
 		},
 	];
+	const departmentsArray = [
+		{ name: 'Sales', value: 'Sales' },
+		{ name: 'Marketing', value: 'Marketing' },
+		{ name: 'Engineering', value: 'Engineering' },
+		{ name: 'Human Resources', value: 'Human Resources' },
+		{ name: 'Legal', value: 'Legal' },
+	];
+
 	const BirthDateInput = forwardRef(({ onChange, value, onClick }, ref) => (
 		<input
 			id="date-of-birth"
@@ -281,8 +290,8 @@ const NewEmployeeForm = (props) => {
 			adressZip,
 			department,
 		};
-    props.setEmployees(props.employees.concat(employee))
-    props.setModalState(true)
+		props.setEmployees(props.employees.concat(employee));
+		props.setModalState(true);
 	};
 	return (
 		<>
@@ -343,23 +352,12 @@ const NewEmployeeForm = (props) => {
 						}}
 						value={adressCity}
 					/>
-
-					<label htmlFor="state">State</label>
-					<select
-						name="state"
-						id="state"
+					<SelectMenu
+						label="State"
 						value={adressState}
-						onChange={(e) => {
-							setAddressState(e.target.value);
-						}}
-					>
-						{states.map((state) => (
-							<option key={state.name} value={state.abbreviation}>
-								{state.name}
-							</option>
-						))}
-					</select>
-
+						onChangeHandler={setAddressState}
+						options={statesArray}
+					></SelectMenu>
 					<label htmlFor="zip-code">Zip Code</label>
 					<input
 						id="zip-code"
@@ -370,22 +368,12 @@ const NewEmployeeForm = (props) => {
 						value={adressZip}
 					/>
 				</fieldset>
-
-				<label htmlFor="department">Department</label>
-				<select
-					name="department"
-					id="department"
+				<SelectMenu
+					label="Department"
 					value={department}
-					onChange={(e) => {
-						setDepartment(e.target.value);
-					}}
-				>
-					<option>Sales</option>
-					<option>Marketing</option>
-					<option>Engineering</option>
-					<option>Human Resources</option>
-					<option>Legal</option>
-				</select>
+					onChangeHandler={setDepartment}
+					options={departmentsArray}
+				></SelectMenu>
 			</form>
 			<button onClick={createEmployee}>Save</button>
 		</>
