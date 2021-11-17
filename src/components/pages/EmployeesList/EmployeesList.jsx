@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
-const EmployeesList = () => {
+import EmployeesTable from '../../EmployeesTable/EmployeesTable';
+const EmployeesList = (props) => {
 	return (
 		<>
       <div id="employee-div" className="container">
             <h1>Current Employees</h1>
-            <table id="employee-table" className="display"></table>
+            <EmployeesTable employees={props.employees}></EmployeesTable>
             <Link to="/">Home</Link>
         </div>
 		</>

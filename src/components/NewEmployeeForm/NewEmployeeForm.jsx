@@ -9,11 +9,17 @@ const NewEmployeeForm = (props) => {
 	const [lastName, setLastName] = useState('');
 	const [birthDate, setBirthDate] = useState(new Date());
 	const [startDate, setStartDate] = useState(new Date());
+	const [birthDateString, setBirthDateString] = useState(
+		birthDate.toLocaleDateString('en-US')
+	);
+	const [startDateString, setStartDateString] = useState(
+		startDate.toLocaleDateString('en-US')
+	);
 	const [adressStreet, setAddressStreet] = useState('');
 	const [adressCity, setAddressCity] = useState('');
-	const [adressState, setAddressState] = useState('');
+	const [adressState, setAddressState] = useState('AL');
 	const [adressZip, setAddressZip] = useState(0);
-	const [department, setDepartment] = useState('');
+	const [department, setDepartment] = useState('Sales');
 	const statesArray = [
 		{
 			name: 'Alabama',
@@ -282,8 +288,8 @@ const NewEmployeeForm = (props) => {
 		const employee = {
 			firstName,
 			lastName,
-			birthDate,
-			startDate,
+			birthDateString,
+			startDateString,
 			adressStreet,
 			adressCity,
 			adressState,
@@ -319,14 +325,24 @@ const NewEmployeeForm = (props) => {
 				<label htmlFor="date-of-birth">Date of Birth</label>
 				<DatePicker
 					selected={birthDate}
-					onChange={(date) => setBirthDate(date)}
+					onChange={(date) => {
+						setBirthDateString(
+							date.toLocaleDateString('en-US')
+						);
+						setBirthDate(date);
+					}}
 					customInput={<BirthDateInput />}
 				/>
 
 				<label htmlFor="start-date">Start Date</label>
 				<DatePicker
 					selected={startDate}
-					onChange={(date) => setStartDate(date)}
+					onChange={(date) =>
+						{setStartDateString(
+							date.toLocaleDateString('en-US')
+						);
+						setStartDate(date);}
+					}
 					customInput={<StartDateInput />}
 				/>
 

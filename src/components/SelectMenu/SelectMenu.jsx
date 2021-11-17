@@ -10,7 +10,7 @@ const SelectMenu = (props) => {
 				}}
 			>
 				{props.options.map((option,index) => {
-					return <option value={option.value} key={`option-${option.value}-${index}`} selected={option}>{option.name}</option>;
+					return <option value={option.value} key={`option-${option.value}-${index}`}>{option.name}</option>;
 				})}
 			</select>
 		</>
