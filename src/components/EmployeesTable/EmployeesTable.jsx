@@ -1,5 +1,10 @@
 import { useMemo } from 'react';
-import { useTable, useGlobalFilter, usePagination } from 'react-table';
+import {
+	useTable,
+	useGlobalFilter,
+	usePagination,
+	useSortBy,
+} from 'react-table';
 import GlobalFilter from './GlobalFilter/GlobalFilter';
 import SetPagination from './SetPagination/setPagination';
 import BrowsePages from './BrowsePages/BrowsePages';
@@ -59,7 +64,6 @@ const EmployeesTable = (props) => {
 		page,
 		canPreviousPage,
 		canNextPage,
-		pageOptions,
 		pageCount,
 		gotoPage,
 		nextPage,
@@ -67,14 +71,32 @@ const EmployeesTable = (props) => {
 		setPageSize,
 		state: { pageIndex, pageSize },
 	} = useTable(
-		{ columns, data, initialState: { pageIndex: 0, pageSize: 10 } },
+		{
+			columns,
+			data,
+			initialState: {
+				pageIndex: 0,
+				pageSize: 10,
+				sortBy: [
+					{
+						id: 'firstName',
+						desc: true,
+					},
+				],
+			},
+		},
 		useGlobalFilter,
+
+		useSortBy,
 		usePagination
 	);
-	
+
 	return (
 		<>
-			<SetPagination setPageSize={setPageSize} pageSize={pageSize}></SetPagination>
+			<SetPagination
+				setPageSize={setPageSize}
+				pageSize={pageSize}
+			></SetPagination>
 			<GlobalFilter
 				preGlobalFilteredRows={preGlobalFilteredRows}
 				globalFilter={state.globalFilter}
@@ -85,7 +107,16 @@ const EmployeesTable = (props) => {
 					{headerGroups.map((headerGroup) => (
 						<tr {...headerGroup.getHeaderGroupProps()}>
 							{headerGroup.headers.map((column) => (
-								<th {...column.getHeaderProps()}>{column.render('Header')}</th>
+								<th {...column.getHeaderProps(column.getSortByToggleProps())}>
+									{column.render('Header')}
+									<span>
+										{column.isSorted
+											? column.isSortedDesc
+												? ' 🔽'
+												: ' 🔼'
+											: ''}
+									</span>
+								</th>
 							))}
 						</tr>
 					))}
@@ -105,7 +136,15 @@ const EmployeesTable = (props) => {
 					})}
 				</tbody>
 			</table>
-			<BrowsePages canPreviousPage={canPreviousPage} canNextPage={canNextPage} pageCount={pageCount} gotoPage={gotoPage} previousPage={previousPage} nextPage={nextPage}></BrowsePages>
+			<BrowsePages
+				canPreviousPage={canPreviousPage}
+				canNextPage={canNextPage}
+				pageCount={pageCount}
+				gotoPage={gotoPage}
+				previousPage={previousPage}
+				nextPage={nextPage}
+			></BrowsePages>
+			<div>Showing {pageIndex > 1 ? pageIndex * pageSize : 1} to {pageSize > rows.length ? rows.length : pageSize} of {rows.length} entries</div>
 		</>
 	);
 };

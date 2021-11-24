@@ -3,8 +3,6 @@ const BrowsePages = (props) => {
 		canPreviousPage,
 		canNextPage,
 		pageCount,
-		pageIndex,
-		pageOptions,
 		gotoPage,
 		previousPage,
 		nextPage,
