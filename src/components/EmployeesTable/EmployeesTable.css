@@ -1,7 +1,7 @@
 table {
 	border: none;
 	border-collapse: collapse;
-	width: 896px;
+	min-width: 896px;
 }
 td {
 	padding: 8px 10px;
@@ -64,4 +64,9 @@ tbody tr:nth-child(odd) {
 	border-bottom: 1px solid black;
 	padding: 8px 10px;
 	text-align: center;
+}
+.table-heading{
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
 }

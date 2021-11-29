@@ -8,6 +8,7 @@ import {
 import GlobalFilter from './GlobalFilter/GlobalFilter';
 import SetPagination from './SetPagination/setPagination';
 import BrowsePages from './BrowsePages/BrowsePages';
+import SetSorting from './SetSorting/SetSorting';
 
 import './EmployeesTable.css';
 
@@ -82,11 +83,11 @@ const EmployeesTable = (props) => {
 				sortBy: [
 					{
 						id: 'firstName',
-						desc: true,
-						disableSortRemove: true,
+						desc: false,
 					},
 				],
 			},
+			disableSortRemove: true,
 		},
 		useGlobalFilter,
 		useSortBy,
@@ -129,14 +130,19 @@ const EmployeesTable = (props) => {
 							<tr {...headerGroup.getHeaderGroupProps()}>
 								{headerGroup.headers.map((column) => (
 									<th {...column.getHeaderProps(column.getSortByToggleProps())}>
-										{column.render('Header')}
-										<span>
-											{column.isSorted
-												? column.isSortedDesc
-													? ' 🔽'
-													: ' 🔼'
-												: ''}
-										</span>
+										<div className="table-heading">
+											<span>{column.render('Header')}</span>
+											
+											{column.isSorted ? (
+												column.isSortedDesc ? (
+													<SetSorting direction="descending"></SetSorting>
+												) : (
+													<SetSorting direction="ascending"></SetSorting>
+												)
+											) : (
+												<SetSorting direction="unsorted"></SetSorting>
+											)}
+										</div>
 									</th>
 								))}
 							</tr>
