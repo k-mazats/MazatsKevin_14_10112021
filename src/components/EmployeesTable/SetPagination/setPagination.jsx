@@ -4,12 +4,11 @@ const SetPagination = (props) => {
 		<label>
       Show
       <select
-        className="form-control"
+      className="table-controls__page-size"
         value={pageSize}
         onChange={(e) => {
           setPageSize(Number(e.target.value));
         }}
-        style={{ width: '120px', height: '38px' }}
       >
         {[10, 25, 50, 100].map((pageSize) => (
           <option key={pageSize} value={pageSize}>

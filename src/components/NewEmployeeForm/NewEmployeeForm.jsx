@@ -1,270 +1,264 @@
 import { forwardRef } from 'react';
 import { useState } from 'react';
 import DatePicker from 'react-datepicker';
-import SelectMenu from '../SelectMenu/SelectMenu';
+import Select from 'react-select';
 import 'react-datepicker/dist/react-datepicker.css';
-
+import './NewEmployeeForm.css'
 const NewEmployeeForm = (props) => {
-	const [firstName, setFirstName] = useState('');
-	const [lastName, setLastName] = useState('');
-	const [birthDate, setBirthDate] = useState(new Date());
-	const [startDate, setStartDate] = useState(new Date());
-	const [birthDateString, setBirthDateString] = useState(
-		birthDate.toLocaleDateString('en-US')
-	);
-	const [startDateString, setStartDateString] = useState(
-		startDate.toLocaleDateString('en-US')
-	);
-	const [adressStreet, setAddressStreet] = useState('');
-	const [adressCity, setAddressCity] = useState('');
-	const [adressState, setAddressState] = useState('AL');
-	const [adressZip, setAddressZip] = useState(0);
-	const [department, setDepartment] = useState('Sales');
 	const statesArray = [
 		{
-			name: 'Alabama',
+			label: 'Alabama',
 			value: 'AL',
 		},
 		{
-			name: 'Alaska',
+			label: 'Alaska',
 			value: 'AK',
 		},
 		{
-			name: 'American Samoa',
+			label: 'American Samoa',
 			value: 'AS',
 		},
 		{
-			name: 'Arizona',
+			label: 'Arizona',
 			value: 'AZ',
 		},
 		{
-			name: 'Arkansas',
+			label: 'Arkansas',
 			value: 'AR',
 		},
 		{
-			name: 'California',
+			label: 'California',
 			value: 'CA',
 		},
 		{
-			name: 'Colorado',
+			label: 'Colorado',
 			value: 'CO',
 		},
 		{
-			name: 'Connecticut',
+			label: 'Connecticut',
 			value: 'CT',
 		},
 		{
-			name: 'Delaware',
+			label: 'Delaware',
 			value: 'DE',
 		},
 		{
-			name: 'District Of Columbia',
+			label: 'District Of Columbia',
 			value: 'DC',
 		},
 		{
-			name: 'Federated States Of Micronesia',
+			label: 'Federated States Of Micronesia',
 			value: 'FM',
 		},
 		{
-			name: 'Florida',
+			label: 'Florida',
 			value: 'FL',
 		},
 		{
-			name: 'Georgia',
+			label: 'Georgia',
 			value: 'GA',
 		},
 		{
-			name: 'Guam',
+			label: 'Guam',
 			value: 'GU',
 		},
 		{
-			name: 'Hawaii',
+			label: 'Hawaii',
 			value: 'HI',
 		},
 		{
-			name: 'Idaho',
+			label: 'Idaho',
 			value: 'ID',
 		},
 		{
-			name: 'Illinois',
+			label: 'Illinois',
 			value: 'IL',
 		},
 		{
-			name: 'Indiana',
+			label: 'Indiana',
 			value: 'IN',
 		},
 		{
-			name: 'Iowa',
+			label: 'Iowa',
 			value: 'IA',
 		},
 		{
-			name: 'Kansas',
+			label: 'Kansas',
 			value: 'KS',
 		},
 		{
-			name: 'Kentucky',
+			label: 'Kentucky',
 			value: 'KY',
 		},
 		{
-			name: 'Louisiana',
+			label: 'Louisiana',
 			value: 'LA',
 		},
 		{
-			name: 'Maine',
+			label: 'Maine',
 			value: 'ME',
 		},
 		{
-			name: 'Marshall Islands',
+			label: 'Marshall Islands',
 			value: 'MH',
 		},
 		{
-			name: 'Maryland',
+			label: 'Maryland',
 			value: 'MD',
 		},
 		{
-			name: 'Massachusetts',
+			label: 'Massachusetts',
 			value: 'MA',
 		},
 		{
-			name: 'Michigan',
+			label: 'Michigan',
 			value: 'MI',
 		},
 		{
-			name: 'Minnesota',
+			label: 'Minnesota',
 			value: 'MN',
 		},
 		{
-			name: 'Mississippi',
+			label: 'Mississippi',
 			value: 'MS',
 		},
 		{
-			name: 'Missouri',
+			label: 'Missouri',
 			value: 'MO',
 		},
 		{
-			name: 'Montana',
+			label: 'Montana',
 			value: 'MT',
 		},
 		{
-			name: 'Nebraska',
+			label: 'Nebraska',
 			value: 'NE',
 		},
 		{
-			name: 'Nevada',
+			label: 'Nevada',
 			value: 'NV',
 		},
 		{
-			name: 'New Hampshire',
+			label: 'New Hampshire',
 			value: 'NH',
 		},
 		{
-			name: 'New Jersey',
+			label: 'New Jersey',
 			value: 'NJ',
 		},
 		{
-			name: 'New Mexico',
+			label: 'New Mexico',
 			value: 'NM',
 		},
 		{
-			name: 'New York',
+			label: 'New York',
 			value: 'NY',
 		},
 		{
-			name: 'North Carolina',
+			label: 'North Carolina',
 			value: 'NC',
 		},
 		{
-			name: 'North Dakota',
+			label: 'North Dakota',
 			value: 'ND',
 		},
 		{
-			name: 'Northern Mariana Islands',
+			label: 'Northern Mariana Islands',
 			value: 'MP',
 		},
 		{
-			name: 'Ohio',
+			label: 'Ohio',
 			value: 'OH',
 		},
 		{
-			name: 'Oklahoma',
+			label: 'Oklahoma',
 			value: 'OK',
 		},
 		{
-			name: 'Oregon',
+			label: 'Oregon',
 			value: 'OR',
 		},
 		{
-			name: 'Palau',
+			label: 'Palau',
 			value: 'PW',
 		},
 		{
-			name: 'Pennsylvania',
+			label: 'Pennsylvania',
 			value: 'PA',
 		},
 		{
-			name: 'Puerto Rico',
+			label: 'Puerto Rico',
 			value: 'PR',
 		},
 		{
-			name: 'Rhode Island',
+			label: 'Rhode Island',
 			value: 'RI',
 		},
 		{
-			name: 'South Carolina',
+			label: 'South Carolina',
 			value: 'SC',
 		},
 		{
-			name: 'South Dakota',
+			label: 'South Dakota',
 			value: 'SD',
 		},
 		{
-			name: 'Tennessee',
+			label: 'Tennessee',
 			value: 'TN',
 		},
 		{
-			name: 'Texas',
+			label: 'Texas',
 			value: 'TX',
 		},
 		{
-			name: 'Utah',
+			label: 'Utah',
 			value: 'UT',
 		},
 		{
-			name: 'Vermont',
+			label: 'Vermont',
 			value: 'VT',
 		},
 		{
-			name: 'Virgin Islands',
+			label: 'Virgin Islands',
 			value: 'VI',
 		},
 		{
-			name: 'Virginia',
+			label: 'Virginia',
 			value: 'VA',
 		},
 		{
-			name: 'Washington',
+			label: 'Washington',
 			value: 'WA',
 		},
 		{
-			name: 'West Virginia',
+			label: 'West Virginia',
 			value: 'WV',
 		},
 		{
-			name: 'Wisconsin',
+			label: 'Wisconsin',
 			value: 'WI',
 		},
 		{
-			name: 'Wyoming',
+			label: 'Wyoming',
 			value: 'WY',
 		},
 	];
 	const departmentsArray = [
-		{ name: 'Sales', value: 'Sales' },
-		{ name: 'Marketing', value: 'Marketing' },
-		{ name: 'Engineering', value: 'Engineering' },
-		{ name: 'Human Resources', value: 'Human Resources' },
-		{ name: 'Legal', value: 'Legal' },
+		{ value: 'Sales', label: 'Sales' },
+		{ value: 'Marketing', label: 'Marketing' },
+		{ value: 'Engineering', label: 'Engineering' },
+		{ value: 'Human Resources', label: 'Human Resources' },
+		{ value: 'Legal', label: 'Legal' },
 	];
+	const [firstName, setFirstName] = useState('');
+	const [lastName, setLastName] = useState('');
+	const [birthDate, setBirthDate] = useState(new Date());
+	const [startDate, setStartDate] = useState(new Date());
+	const [adressStreet, setAddressStreet] = useState('');
+	const [adressCity, setAddressCity] = useState('');
+	const [adressState, setAddressState] = useState(statesArray[0]);
+	const [adressZip, setAddressZip] = useState(0);
+	const [department, setDepartment] = useState(departmentsArray[0]);
 
 	const BirthDateInput = forwardRef(({ onChange, value, onClick }, ref) => (
 		<input
@@ -288,13 +282,13 @@ const NewEmployeeForm = (props) => {
 		const employee = {
 			firstName,
 			lastName,
-			birthDateString,
-			startDateString,
+			birthDate: birthDate.toLocaleDateString('en-US'),
+			startDate: startDate.toLocaleDateString('en-US'),
 			adressStreet,
 			adressCity,
-			adressState,
+			adressState: adressState.value,
 			adressZip,
-			department,
+			department: department.value,
 		};
 		props.setEmployees(props.employees.concat(employee));
 		props.setModalState(true);
@@ -326,9 +320,6 @@ const NewEmployeeForm = (props) => {
 				<DatePicker
 					selected={birthDate}
 					onChange={(date) => {
-						setBirthDateString(
-							date.toLocaleDateString('en-US')
-						);
 						setBirthDate(date);
 					}}
 					customInput={<BirthDateInput />}
@@ -337,12 +328,9 @@ const NewEmployeeForm = (props) => {
 				<label htmlFor="start-date">Start Date</label>
 				<DatePicker
 					selected={startDate}
-					onChange={(date) =>
-						{setStartDateString(
-							date.toLocaleDateString('en-US')
-						);
-						setStartDate(date);}
-					}
+					onChange={(date) => {
+						setStartDate(date);
+					}}
 					customInput={<StartDateInput />}
 				/>
 
@@ -368,12 +356,14 @@ const NewEmployeeForm = (props) => {
 						}}
 						value={adressCity}
 					/>
-					<SelectMenu
-						label="State"
-						value={adressState}
-						onChangeHandler={setAddressState}
+					<label htmlFor="state">State</label>
+					<Select
 						options={statesArray}
-					></SelectMenu>
+						defaultValue={statesArray[0]}
+						value={adressState}
+						onChange={setAddressState}
+						id="state"
+					></Select>
 					<label htmlFor="zip-code">Zip Code</label>
 					<input
 						id="zip-code"
@@ -384,12 +374,14 @@ const NewEmployeeForm = (props) => {
 						value={adressZip}
 					/>
 				</fieldset>
-				<SelectMenu
-					label="Department"
-					value={department}
-					onChangeHandler={setDepartment}
+				<label htmlFor="department">Department</label>
+				<Select
 					options={departmentsArray}
-				></SelectMenu>
+					defaultValue={departmentsArray[0]}
+					value={department}
+					onChange={setDepartment}
+					id="department"
+				></Select>
 			</form>
 			<button onClick={createEmployee}>Save</button>
 		</>

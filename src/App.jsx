@@ -12,7 +12,7 @@ const App = () => {
 			/>
 			<Route
 				path="/"
-				element={<Home employees={employees}  setEmployees={setEmployees} />}
+				element={<Home employees={employees} setEmployees={setEmployees} />}
 			/>
 		</Routes>
 	);

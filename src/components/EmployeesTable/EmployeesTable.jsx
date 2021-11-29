@@ -9,6 +9,8 @@ import GlobalFilter from './GlobalFilter/GlobalFilter';
 import SetPagination from './SetPagination/setPagination';
 import BrowsePages from './BrowsePages/BrowsePages';
 
+import './EmployeesTable.css';
+
 const EmployeesTable = (props) => {
 	const data = useMemo(() => [...props.employees], [props]);
 	const columns = useMemo(
@@ -23,7 +25,7 @@ const EmployeesTable = (props) => {
 			},
 			{
 				Header: 'Start Date',
-				accessor: 'startDateString',
+				accessor: 'startDate',
 			},
 			{
 				Header: 'Department',
@@ -31,7 +33,7 @@ const EmployeesTable = (props) => {
 			},
 			{
 				Header: 'Date of Birth',
-				accessor: 'birthDateString',
+				accessor: 'birthDate',
 			},
 			{
 				Header: 'Street',
@@ -81,70 +83,102 @@ const EmployeesTable = (props) => {
 					{
 						id: 'firstName',
 						desc: true,
+						disableSortRemove: true,
 					},
 				],
 			},
 		},
 		useGlobalFilter,
-
 		useSortBy,
 		usePagination
 	);
-
+	const getPageMin = () => {
+		if (rows.length === 0) {
+			return 0;
+		} else if (pageIndex > 0) {
+			return pageIndex * pageSize + 1;
+		}
+		return 1;
+	};
+	const getPageMax = () => {
+		const pageMax = pageSize * (pageIndex + 1);
+		if (pageSize > rows.length) {
+			return rows.length;
+		} else if (pageMax > rows.length) {
+			return rows.length;
+		}
+		return pageMax;
+	};
 	return (
 		<>
-			<SetPagination
-				setPageSize={setPageSize}
-				pageSize={pageSize}
-			></SetPagination>
-			<GlobalFilter
-				preGlobalFilteredRows={preGlobalFilteredRows}
-				globalFilter={state.globalFilter}
-				setGlobalFilter={setGlobalFilter}
-			/>
-			<table className="table" {...getTableProps()}>
-				<thead>
-					{headerGroups.map((headerGroup) => (
-						<tr {...headerGroup.getHeaderGroupProps()}>
-							{headerGroup.headers.map((column) => (
-								<th {...column.getHeaderProps(column.getSortByToggleProps())}>
-									{column.render('Header')}
-									<span>
-										{column.isSorted
-											? column.isSortedDesc
-												? ' 🔽'
-												: ' 🔼'
-											: ''}
-									</span>
-								</th>
-							))}
-						</tr>
-					))}
-				</thead>
-				<tbody {...getTableBodyProps()}>
-					{page.map((row, i) => {
-						prepareRow(row);
-						return (
-							<tr {...row.getRowProps()}>
-								{row.cells.map((cell) => {
-									return (
-										<td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-									);
-								})}
+			<div className="table-controls">
+				<SetPagination
+					setPageSize={setPageSize}
+					pageSize={pageSize}
+				></SetPagination>
+				<GlobalFilter
+					preGlobalFilteredRows={preGlobalFilteredRows}
+					globalFilter={state.globalFilter}
+					setGlobalFilter={setGlobalFilter}
+				/>
+			</div>
+			{rows.length > 0 ? (
+				<table className="table" {...getTableProps()}>
+					<thead>
+						{headerGroups.map((headerGroup) => (
+							<tr {...headerGroup.getHeaderGroupProps()}>
+								{headerGroup.headers.map((column) => (
+									<th {...column.getHeaderProps(column.getSortByToggleProps())}>
+										{column.render('Header')}
+										<span>
+											{column.isSorted
+												? column.isSortedDesc
+													? ' 🔽'
+													: ' 🔼'
+												: ''}
+										</span>
+									</th>
+								))}
 							</tr>
-						);
-					})}
-				</tbody>
-			</table>
-			<BrowsePages
-				canPreviousPage={canPreviousPage}
-				canNextPage={canNextPage}
-				pageCount={pageCount}
-				gotoPage={gotoPage}
-				previousPage={previousPage}
-				nextPage={nextPage}
-			></BrowsePages>
-			<div>Showing {pageIndex > 1 ? pageIndex * pageSize : 1} to {pageSize > rows.length ? rows.length : pageSize} of {rows.length} entries</div>
+						))}
+					</thead>
+					<tbody {...getTableBodyProps()}>
+						{page.map((row, i) => {
+							prepareRow(row);
+							return (
+								<tr {...row.getRowProps()}>
+									{row.cells.map((cell) => {
+										return (
+											<td
+												{...cell.getCellProps()}
+												className={cell.column.isSorted ? 'sorted' : null}
+											>
+												{cell.render('Cell')}
+											</td>
+										);
+									})}
+								</tr>
+							);
+						})}
+					</tbody>
+				</table>
+			) : (
+				<div className="table-placeholder">No data available in table</div>
+			)}
+			<div className="pages-controls">
+				<div>
+					Showing {getPageMin()} to {getPageMax()} of {rows.length} entries
+				</div>
+				<BrowsePages
+					canPreviousPage={canPreviousPage}
+					canNextPage={canNextPage}
+					pageCount={pageCount}
+					gotoPage={gotoPage}
+					previousPage={previousPage}
+					nextPage={nextPage}
+					pageIndex={pageIndex}
+				></BrowsePages>
+			</div>
 		</>
 	);
 };

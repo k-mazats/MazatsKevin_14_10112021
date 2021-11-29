@@ -1,0 +1,14 @@
+.modal__close-button--custom {
+	position: absolute;
+	font-size: 1.5rem;
+	max-width: calc(1.5rem - 2px);
+	max-height: calc(1.5rem - 2px);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	top: -0.75rem;
+	right: 20px;
+	background-color: white;
+	border-radius: 50%;
+  cursor: pointer;
+}
